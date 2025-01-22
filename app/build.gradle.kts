@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -59,7 +58,7 @@ android {
 }
 
 dependencies {
-
+    // androidx
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.androidx)
     testImplementation(libs.junit)
@@ -72,6 +71,7 @@ dependencies {
 
     // okhttp
     implementation(platform(libs.okhttp.bom))
+    implementation(libs.bundles.okhttp)
     // retrofit
     implementation(libs.bundles.retrofit)
     // timber
