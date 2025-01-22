@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.dagger.hilt)
 }
 
 android {
@@ -51,14 +54,8 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+    implementation(libs.bundles.androidx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,4 +63,20 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // okhttp
+    implementation(platform(libs.okhttp.bom))
+    // retrofit
+    implementation(libs.bundles.retrofit)
+    // timber
+    implementation(libs.timber)
+    // coroutine
+    implementation(libs.bundles.coroutine)
+    // hilt
+    implementation(libs.bundles.hilt)
+    ksp(libs.dagger.hilt.compiler)
+    // kotlinx immutable
+    implementation(libs.kotlinx.collections.immutable)
+    // kotlinx serialization
+    implementation(libs.kotlinx.serialization.json)
 }
