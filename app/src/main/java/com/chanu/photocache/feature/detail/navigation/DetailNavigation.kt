@@ -1,4 +1,4 @@
-package com.chanu.photocache.feature.detail
+package com.chanu.photocache.feature.detail.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
