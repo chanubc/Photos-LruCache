@@ -1,4 +1,4 @@
-package com.chanu.photocache.ui.theme
+package com.chanu.photocache.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
