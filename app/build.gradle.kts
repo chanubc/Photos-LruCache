@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -7,6 +8,10 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.compose.compiler)
+}
+
+val properties = Properties().apply {
+    load(rootProject.file("local.properties").inputStream())
 }
 
 android {
@@ -24,6 +29,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val wableDevBaseUrl = properties["base.url"] as? String ?: ""
+        buildConfigField("String", "BASE_URL", wableDevBaseUrl)
     }
 
     buildTypes {
