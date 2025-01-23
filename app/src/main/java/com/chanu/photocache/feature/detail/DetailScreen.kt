@@ -9,7 +9,7 @@ import com.chanu.photocache.core.designsystem.theme.PhotoCacheTheme
 
 @Composable
 fun DetailRoute(
-    navigateToDetail: () -> Unit,
+    onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
 ) {
     DetailScreen()
 }

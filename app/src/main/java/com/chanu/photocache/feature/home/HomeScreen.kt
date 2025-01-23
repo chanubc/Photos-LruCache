@@ -10,6 +10,7 @@ import com.chanu.photocache.core.designsystem.theme.PhotoCacheTheme
 @Composable
 fun HomeRoute(
     navigateToDetail: () -> Unit,
+    onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
 ) {
     HomeScreen()
 }

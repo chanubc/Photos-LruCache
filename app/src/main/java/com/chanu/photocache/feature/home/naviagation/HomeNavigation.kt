@@ -5,7 +5,7 @@ import androidx.navigation.compose.composable
 import com.chanu.photocache.core.navigation.Route
 
 fun NavGraphBuilder.homeNavGraph(
-    navigateToHome: () -> Unit,
+    navigateToDetail: () -> Unit,
     onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
 ) {
     composable<Route.Home> {

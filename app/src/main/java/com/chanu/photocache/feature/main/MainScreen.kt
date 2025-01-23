@@ -12,6 +12,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.chanu.photocache.core.common.util.getThrowableMessage
+import com.chanu.photocache.feature.detail.navigation.detailNavGraph
+import com.chanu.photocache.feature.home.naviagation.homeNavGraph
 import kotlinx.coroutines.launch
 
 @Composable
@@ -39,6 +41,13 @@ fun MainScreen(
                     navController = navigator.navController,
                     startDestination = navigator.startDestination,
                 ) {
+                    homeNavGraph(
+                        navigateToDetail = navigator::navigateRetail,
+                        onShowErrorSnackBar = onShowErrorSnackBar,
+                    )
+                    detailNavGraph(
+                        onShowErrorSnackBar = onShowErrorSnackBar,
+                    )
                 }
             }
         },
