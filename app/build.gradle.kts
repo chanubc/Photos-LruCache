@@ -70,6 +70,7 @@ dependencies {
     // androidx
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.androidx)
+    implementation(libs.androidx.paging.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
