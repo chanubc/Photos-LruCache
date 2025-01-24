@@ -29,6 +29,7 @@ hiltNavigationCompose = "1.2.0"
 
 # third party
 timber = "5.0.1"
+pagingCompose = "3.3.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -69,6 +70,7 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 
 # Third Party
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "pagingCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

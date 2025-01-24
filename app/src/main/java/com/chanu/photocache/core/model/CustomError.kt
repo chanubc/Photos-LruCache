@@ -1,19 +1,19 @@
 package com.chanu.photocache.core.model
 
 sealed class CustomError(message: String?) : Exception(message) {
-    data class ApiCustomError(
+    data class ApiError(
         val errorMessage: String?,
     ) : CustomError(errorMessage)
 
-    data class NetWorkConnectCustomError(
+    data class NetWorkConnectError(
         val errorMessage: String,
     ) : CustomError(errorMessage)
 
-    data class TimeOutCustomError(
+    data class TimeOutError(
         val errorMessage: String,
     ) : CustomError(errorMessage)
 
-    data class UnknownCustomError(
+    data class UnknownError(
         val errorMessage: String,
     ) : CustomError(errorMessage)
 }
