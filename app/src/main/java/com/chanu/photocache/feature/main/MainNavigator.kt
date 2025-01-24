@@ -18,8 +18,8 @@ class MainNavigator(
 
     val startDestination = Route.Home
 
-    fun navigateRetail() {
-        navController.navigateDetail()
+    fun navigateRetail(id:String) {
+        navController.navigateDetail(id)
     }
 
     fun isBackStackNotEmpty(): Boolean = navController.previousBackStackEntry != null
