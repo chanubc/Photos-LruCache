@@ -21,7 +21,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.chanu.photocache.core.designsystem.theme.PhotoCacheTheme
 import com.chanu.photocache.core.model.PhotoModel
-import com.chanu.photocache.feature.home.component.NetworkImage2
+import com.chanu.photocache.feature.home.component.PhotoItem
 import com.chanu.photocache.feature.home.model.HomeSideEffect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOf
@@ -80,7 +80,7 @@ private fun HomeScreen(
             val item = lazyPagingItems[index]
             Timber.tag("HomeScreen").d("item: $item")
             if (item != null) {
-                NetworkImage2(
+                PhotoItem(
                     images[item.downloadUrl],
                     onLoad = { onImageLoad(item.downloadUrl) },
                 )
