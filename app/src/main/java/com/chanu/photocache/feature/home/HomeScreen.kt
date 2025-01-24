@@ -22,10 +22,10 @@ import androidx.paging.compose.itemKey
 import com.chanu.photocache.core.designsystem.theme.PhotoCacheTheme
 import com.chanu.photocache.core.model.PhotoModel
 import com.chanu.photocache.feature.home.component.PhotoItem
+import com.chanu.photocache.feature.home.model.HomeIntent
 import com.chanu.photocache.feature.home.model.HomeSideEffect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOf
-import timber.log.Timber
 
 @Composable
 fun HomeRoute(
@@ -54,7 +54,7 @@ fun HomeRoute(
       }*/
     HomeScreen(
         lazyPagingItems = lazyPagingItems,
-        navigateToDetail = navigateToDetail,
+        navigateToDetail = { viewModel.onIntent(HomeIntent.ItemClick(it)) },
         onImageLoad = { url -> viewModel.loadImage(url) },
         images = images,
     )
@@ -78,11 +78,11 @@ private fun HomeScreen(
             key = lazyPagingItems.itemKey { it.id },
         ) { index ->
             val item = lazyPagingItems[index]
-            Timber.tag("HomeScreen").d("item: $item")
             if (item != null) {
                 PhotoItem(
-                    images[item.downloadUrl],
+                    bitmap = images[item.downloadUrl],
                     onLoad = { onImageLoad(item.downloadUrl) },
+                    onClick = { navigateToDetail(item.id) },
                 )
             }
         }
