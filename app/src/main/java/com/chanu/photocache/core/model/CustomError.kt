@@ -13,6 +13,10 @@ sealed class CustomError(message: String?) : Exception(message) {
         val errorMessage: String,
     ) : CustomError(errorMessage)
 
+    data class SocketError(
+        val errorMessage: String,
+    ) : CustomError(errorMessage)
+
     data class UnknownError(
         val errorMessage: String,
     ) : CustomError(errorMessage)
