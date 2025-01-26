@@ -18,7 +18,7 @@ class MainNavigator(
 
     val startDestination = Route.Home
 
-    fun navigateRetail(id:String) {
+    fun navigateRetail(id: String) {
         navController.navigateDetail(id)
     }
 

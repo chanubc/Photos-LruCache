@@ -10,11 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import com.chanu.photocache.core.common.util.getThrowableMessage
 import com.chanu.photocache.feature.detail.navigation.detailNavGraph
 import com.chanu.photocache.feature.home.naviagation.homeNavGraph
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
+private const val SNACK_BAR_DURATION = 2000L
 
 @Composable
 fun MainScreen(
@@ -22,10 +26,15 @@ fun MainScreen(
 ) {
     val snackBarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
+    val localContextResource = LocalContext.current.resources
 
     val onShowErrorSnackBar: (throwable: Throwable?) -> Unit = { throwable ->
         coroutineScope.launch {
-            snackBarHostState.showSnackbar(message = getThrowableMessage(throwable))
+            val job = launch {
+                snackBarHostState.showSnackbar(message = getThrowableMessage(throwable, localContextResource))
+            }
+            delay(SNACK_BAR_DURATION)
+            job.cancel()
         }
     }
 

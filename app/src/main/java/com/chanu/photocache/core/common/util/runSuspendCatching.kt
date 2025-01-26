@@ -2,7 +2,7 @@ package com.chanu.photocache.core.common.util
 
 import kotlin.coroutines.cancellation.CancellationException
 
-suspend inline fun <R> runSuspendCatching(block: () -> R): Result<R> {
+inline fun <R> runSuspendCatching(block: () -> R): Result<R> {
     return try {
         Result.success(block())
     } catch (c: CancellationException) {
