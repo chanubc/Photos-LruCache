@@ -4,6 +4,7 @@ import com.chanu.photocache.core.model.CustomError
 import org.json.JSONObject
 import retrofit2.HttpException
 import java.net.ConnectException
+import java.net.SocketException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -29,6 +30,7 @@ fun Throwable.toCustomError(): Throwable = when (this) {
     is UnknownHostException -> CustomError.NetWorkConnectError(NETWORK_CONNECT_ERROR_MESSAGE)
     is ConnectException -> CustomError.NetWorkConnectError(INTERNET_CONNECTION_ERROR_MESSAGE)
     is SocketTimeoutException -> CustomError.TimeOutError(TIMEOUT_ERROR_MESSAGE)
+    is SocketException -> CustomError.SocketError(INTERNET_CONNECTION_ERROR_MESSAGE)
     else -> CustomError.UnknownError(this.message ?: UNKNOWN_ERROR_MESSAGE)
 }
 
