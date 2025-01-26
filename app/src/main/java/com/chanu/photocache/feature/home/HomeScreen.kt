@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,6 +27,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
+import com.chanu.photocache.R
 import com.chanu.photocache.core.data.util.toCustomError
 import com.chanu.photocache.core.designsystem.component.PhotoCacheCircularIndicator
 import com.chanu.photocache.core.designsystem.component.screen.ErrorScreen
@@ -92,8 +94,8 @@ private fun HomeScreen(
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(1.dp),
-        horizontalArrangement = Arrangement.spacedBy(1.dp),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.grid_padding)),
+        horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.grid_padding)),
     ) {
         items(
             count = lazyPagingItems.itemCount,
