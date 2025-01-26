@@ -12,8 +12,8 @@ import com.chanu.photocache.core.designsystem.type.LoadType
 
 @Composable
 fun BoxScope.ThumbNailComponent(
-    state: LoadType = LoadType.Loading,
     modifier: Modifier = Modifier,
+    state: LoadType = LoadType.Loading,
 ) {
     if (state == LoadType.Loading) {
         Box(
