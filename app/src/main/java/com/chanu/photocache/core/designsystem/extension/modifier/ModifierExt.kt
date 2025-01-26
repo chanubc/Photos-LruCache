@@ -10,7 +10,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.input.pointer.pointerInteropFilter
+import androidx.compose.ui.unit.dp
+import com.chanu.photocache.core.designsystem.type.ColorFilterType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -44,5 +47,18 @@ fun Modifier.noRippleDebounceClickable(
             }
         }
         true
+    }
+}
+
+fun Modifier.applyBlurStyle(
+    style: ColorFilterType,
+): Modifier = composed {
+    when (style) {
+        ColorFilterType.BLUR -> this.blur(
+            radiusX = 10.dp,
+            radiusY = 10.dp,
+        )
+
+        else -> this
     }
 }
