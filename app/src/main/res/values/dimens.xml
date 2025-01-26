@@ -2,4 +2,5 @@
 <resources>
     <dimen name="blur_radius">10dp</dimen>
     <dimen name="grid_padding">1dp</dimen>
+    <dimen name="btn_horizontal_padding">8dp</dimen>
 </resources>

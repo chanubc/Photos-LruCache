@@ -1,22 +1,28 @@
 package com.chanu.photocache.feature.detail
 
 import android.graphics.Bitmap
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
-import com.chanu.photocache.core.designsystem.component.ThumbNailComponent
+import com.chanu.photocache.R
+import com.chanu.photocache.core.designsystem.component.thumbnail.ThumbNailComponent
 import com.chanu.photocache.core.designsystem.theme.PhotoCacheTheme
+import com.chanu.photocache.feature.detail.component.DetailButton
 import com.chanu.photocache.feature.detail.component.ZoomInOutBox
 import com.chanu.photocache.feature.detail.model.DetailIntent
 import com.chanu.photocache.feature.detail.model.DetailSideEffect
@@ -55,9 +61,9 @@ fun DetailRoute(
 private fun DetailScreen(
     state: DetailState,
     imageBitmap: Bitmap?,
+    onClickDefaultBtn: () -> Unit = {},
     onClickGrayBtn: () -> Unit = {},
     onClickBlurBtn: () -> Unit = {},
-    onClickDefaultBtn: () -> Unit = {},
 ) {
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -75,24 +81,28 @@ private fun DetailScreen(
             },
         )
 
-        Button(
-            onClick = onClickDefaultBtn,
-            modifier = Modifier.align(Alignment.BottomStart),
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .padding(
+                    horizontal = 16.dp,
+                    vertical = 20.dp,
+                ),
         ) {
-            Text(text = "default")
-        }
-
-        Button(
-            onClick = onClickGrayBtn,
-            modifier = Modifier.align(Alignment.BottomCenter),
-        ) {
-            Text(text = "gray")
-        }
-        Button(
-            onClick = onClickBlurBtn,
-            modifier = Modifier.align(Alignment.BottomEnd),
-        ) {
-            Text(text = "blur")
+            DetailButton(
+                text = stringResource(id = R.string.btn_default),
+                onClick = onClickDefaultBtn,
+            )
+            DetailButton(
+                text = stringResource(id = R.string.btn_gray),
+                onClick = onClickGrayBtn,
+            )
+            DetailButton(
+                text = stringResource(id = R.string.btn_blur),
+                onClick = onClickBlurBtn,
+            )
         }
     }
 }
