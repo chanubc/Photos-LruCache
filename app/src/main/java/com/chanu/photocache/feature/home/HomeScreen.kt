@@ -132,7 +132,9 @@ private fun HomeScreen(
                 span = { GridItemSpan(maxCurrentLineSpan) },
             ) {
                 Button(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
                     onClick = onRetry,
                 ) {
                     Text(text = stringResource(R.string.btn_retry))
