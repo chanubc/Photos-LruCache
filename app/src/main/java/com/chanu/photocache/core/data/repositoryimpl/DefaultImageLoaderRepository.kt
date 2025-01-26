@@ -2,8 +2,8 @@ package com.chanu.photocache.core.data.repositoryimpl
 
 import android.graphics.Bitmap
 import com.chanu.photocache.cache.datasource.BitmapFetcher
+import com.chanu.photocache.cache.datasource.DiskCache
 import com.chanu.photocache.cache.datasource.MemoryCache
-import com.chanu.photocache.cache.ver2.CoroutineLRUDiskCache
 import com.chanu.photocache.core.common.util.runSuspendCatching
 import com.chanu.photocache.core.data.repository.ImageLoaderRepository
 import com.chanu.photocache.core.data.util.handleThrowable
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class DefaultImageLoaderRepository @Inject constructor(
     private val memoryCache: MemoryCache,
-    private val diskCache: CoroutineLRUDiskCache,
+    private val diskCache: DiskCache,
     private val bitmapFetcher: BitmapFetcher,
 ) : ImageLoaderRepository {
     // 메모리 캐시, 디스크 캐시, 네트워크 순서로 이미지 조회
