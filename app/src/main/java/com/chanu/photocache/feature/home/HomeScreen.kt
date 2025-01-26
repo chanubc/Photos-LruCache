@@ -47,16 +47,23 @@ fun HomeRoute(
             }
     }
 
-    /*  when {
-          isLoading -> item { LoadingScreen() }
-          isEmpty -> item { NewsNoticeEmptyScreen(emptyTxt = R.string.tv_news_info_empty) }
-          else -> HomeScreen()
-      }*/
-    HomeScreen(
+    PagingStateHandler(
         lazyPagingItems = lazyPagingItems,
-        navigateToDetail = { viewModel.onIntent(HomeIntent.ItemClick(it)) },
-        onImageLoad = { url -> viewModel.loadImage(url) },
-        images = images,
+        loadingContent = { LoadingScreen() },
+        emptyContent = { EmptyTextScreen() },
+        errorContent = {
+            ErrorScreen(onClick = lazyPagingItems::retry)
+            viewModel.onIntent(HomeIntent.SetPagingError(it.toCustomError()))
+        },
+        content = {
+            HomeScreen(
+                lazyPagingItems = lazyPagingItems,
+                navigateToDetail = { viewModel.onIntent(HomeIntent.ItemClick(it)) },
+                onImageLoad = { url -> viewModel.onIntent(HomeIntent.LoadImage(url)) },
+                onRetry = lazyPagingItems::retry,
+                images = images,
+            )
+        },
     )
 }
 
