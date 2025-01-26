@@ -1,4 +1,4 @@
-package com.chanu.photocache.cache.datasource
+package com.chanu.photocache.core.data.cache.datasource
 
 import android.content.Context
 import android.graphics.Bitmap

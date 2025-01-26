@@ -1,9 +1,9 @@
-package com.chanu.photocache.cache.di
+package com.chanu.photocache.core.data.cache.di
 
 import android.content.Context
-import com.chanu.photocache.cache.datasource.BitmapFetcher
-import com.chanu.photocache.cache.datasource.DiskCache
-import com.chanu.photocache.cache.datasource.MemoryCache
+import com.chanu.photocache.core.data.cache.datasource.BitmapFetcher
+import com.chanu.photocache.core.data.cache.datasource.DiskCache
+import com.chanu.photocache.core.data.cache.datasource.MemoryCache
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

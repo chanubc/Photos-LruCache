@@ -1,10 +1,10 @@
 package com.chanu.photocache.core.data.repositoryimpl
 
 import android.graphics.Bitmap
-import com.chanu.photocache.cache.datasource.BitmapFetcher
-import com.chanu.photocache.cache.datasource.DiskCache
-import com.chanu.photocache.cache.datasource.MemoryCache
 import com.chanu.photocache.core.common.util.runSuspendCatching
+import com.chanu.photocache.core.data.cache.datasource.BitmapFetcher
+import com.chanu.photocache.core.data.cache.datasource.DiskCache
+import com.chanu.photocache.core.data.cache.datasource.MemoryCache
 import com.chanu.photocache.core.data.repository.ImageLoaderRepository
 import com.chanu.photocache.core.data.util.handleThrowable
 import javax.inject.Inject
