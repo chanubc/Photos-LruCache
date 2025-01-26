@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -27,7 +28,7 @@ fun ZoomInOutBox(
         restore = { Offset(it[0], it[1]) },
     )
 
-    var scale by rememberSaveable { mutableStateOf(1f) }
+    var scale by rememberSaveable { mutableFloatStateOf(1f) }
     var offset by rememberSaveable(stateSaver = offsetSaver) { mutableStateOf(Offset.Zero) }
 
     BoxWithConstraints(

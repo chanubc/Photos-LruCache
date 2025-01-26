@@ -1,4 +1,4 @@
-package com.chanu.photocache.core.designsystem.component
+package com.chanu.photocache.core.designsystem.component.indicator
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding

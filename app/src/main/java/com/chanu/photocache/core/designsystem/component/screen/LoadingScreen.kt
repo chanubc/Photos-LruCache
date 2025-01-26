@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.chanu.photocache.core.designsystem.component.PhotoCacheCircularIndicator
+import com.chanu.photocache.core.designsystem.component.indicator.PhotoCacheCircularIndicator
 
 @Composable
 fun LoadingScreen() {

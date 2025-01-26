@@ -5,7 +5,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.chanu.photocache.R
 import com.chanu.photocache.core.designsystem.type.MessageType
 import com.teamwable.designsystem.component.screen.EmptyTextScreen
 
@@ -21,7 +23,7 @@ fun ErrorScreen(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 onClick = onClick,
             ) {
-                Text(text = "Retry")
+                Text(text = stringResource(R.string.btn_retry))
             }
         },
     )
