@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">PhotoCache</string>
+    <!-- error -->
     <string name="error_message">오류가 발생 했어요.\n다시 시도해 주시겠어요?</string>
+    <string name="error_message_unknown">알 수 없는 오류가 발생하였습니다</string>
+    <!-- empty -->
     <string name="empty_message">불러올 사진이 없어요</string>
 </resources>
