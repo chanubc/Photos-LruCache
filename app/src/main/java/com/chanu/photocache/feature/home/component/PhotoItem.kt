@@ -11,7 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
+import com.chanu.photocache.core.designsystem.extension.modifier.applyBlurStyle
 import com.chanu.photocache.core.designsystem.extension.modifier.noRippleClickable
+import com.chanu.photocache.core.designsystem.theme.PhotoCacheTheme
+import com.chanu.photocache.core.designsystem.type.ColorFilterType
 
 @Composable
 fun PhotoItem(
@@ -34,23 +38,42 @@ fun PhotoItem(
 @Composable
 fun PhotoContent(
     bitmap: Bitmap?,
-    onClick: () -> Unit,
+    colorFilterType: ColorFilterType = ColorFilterType.DEFAULT,
     modifier: Modifier,
+    onClick: () -> Unit = {},
+    content: @Composable () -> Unit = {},
 ) {
-    if (bitmap != null) {
-        Image(
-            bitmap = bitmap.asImageBitmap(),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = modifier
-                .aspectRatio(1f)
-                .noRippleClickable { onClick() },
-        )
-    } else {
-        Box(
-            modifier = modifier
-                .aspectRatio(1f)
-                .background(Color.LightGray),
+    Box(
+        modifier = modifier
+            .aspectRatio(1f)
+            .background(Color.LightGray.copy(alpha = 0.5f)),
+    ) {
+        if (bitmap != null) {
+            Image(
+                bitmap = bitmap.asImageBitmap(),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                colorFilter = colorFilterType.toColorFilter(),
+                modifier = modifier
+                    .aspectRatio(1f)
+                    .applyBlurStyle(colorFilterType)
+                    .noRippleClickable { onClick() },
+            )
+        }
+        content()
+    }
+}
+
+
+
+@Composable
+@Preview(showBackground = true)
+private fun PhotoItemPreview() {
+    PhotoCacheTheme {
+        PhotoContent(
+            bitmap = null,
+            onClick = {},
+            modifier = Modifier,
         )
     }
 }
