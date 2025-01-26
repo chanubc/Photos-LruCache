@@ -1,4 +1,4 @@
-package com.chanu.photocache.core.designsystem.component
+package com.chanu.photocache.core.designsystem.component.thumbnail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.chanu.photocache.core.designsystem.component.indicator.PhotoCacheCircularIndicator
 import com.chanu.photocache.core.designsystem.type.LoadType
 
 @Composable

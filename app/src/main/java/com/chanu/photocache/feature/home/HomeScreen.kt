@@ -29,7 +29,7 @@ import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.chanu.photocache.R
 import com.chanu.photocache.core.data.util.toCustomError
-import com.chanu.photocache.core.designsystem.component.PhotoCacheCircularIndicator
+import com.chanu.photocache.core.designsystem.component.indicator.PhotoCacheCircularIndicator
 import com.chanu.photocache.core.designsystem.component.screen.ErrorScreen
 import com.chanu.photocache.core.designsystem.component.screen.LoadingScreen
 import com.chanu.photocache.core.designsystem.theme.PhotoCacheTheme
