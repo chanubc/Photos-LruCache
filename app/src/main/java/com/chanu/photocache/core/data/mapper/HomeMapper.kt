@@ -4,6 +4,7 @@ import com.chanu.photocache.core.model.PhotoModel
 import com.chanu.photocache.core.network.dto.ResponsePhotoDto
 
 private const val SIZE_200 = 200
+private const val FILE_EXTENSION = ".webp"
 
 fun ResponsePhotoDto.toPhotoModel(): PhotoModel = PhotoModel(
     id = id,
@@ -12,4 +13,4 @@ fun ResponsePhotoDto.toPhotoModel(): PhotoModel = PhotoModel(
 
 fun String.toResizedUrl(): String = this
     .substringBeforeLast("/")
-    .substringBeforeLast("/") + "/$SIZE_200.webp"
+    .substringBeforeLast("/") + "/$SIZE_200$FILE_EXTENSION"
