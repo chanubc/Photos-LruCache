@@ -7,5 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface HomeRepository {
     fun getPhotos(): Flow<PagingData<PhotoModel>>
 
-    suspend fun getDetailPhoto(id: Int): Result<PhotoModel>
+    suspend fun getDetailPhoto(id: Int): Result<String>
+
+    suspend fun getThumbNailPhoto(id: Int): Result<String>
 }

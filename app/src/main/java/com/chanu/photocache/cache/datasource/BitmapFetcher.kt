@@ -2,7 +2,6 @@ package com.chanu.photocache.cache.datasource
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import com.chanu.photocache.core.data.util.toCustomError
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -24,7 +23,7 @@ class BitmapFetcher {
                 BitmapFactory.decodeStream(inputStream)
             }
         } catch (e: Exception) {
-            throw e.toCustomError()
+            null
         }
     }
 }

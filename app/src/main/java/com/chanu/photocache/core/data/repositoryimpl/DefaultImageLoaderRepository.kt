@@ -6,6 +6,7 @@ import com.chanu.photocache.cache.datasource.MemoryCache
 import com.chanu.photocache.cache.ver2.CoroutineLRUDiskCache
 import com.chanu.photocache.core.common.util.runSuspendCatching
 import com.chanu.photocache.core.data.repository.ImageLoaderRepository
+import com.chanu.photocache.core.data.util.handleThrowable
 import javax.inject.Inject
 
 class DefaultImageLoaderRepository @Inject constructor(
@@ -33,5 +34,13 @@ class DefaultImageLoaderRepository @Inject constructor(
         }
 
         bitmap
+    }.onFailure {
+        return it.handleThrowable()
+    }
+
+    override suspend fun loadThumbNail(url: String): Result<Bitmap?> = runSuspendCatching {
+        bitmapFetcher.fetchBitmapFromUrl(url)
+    }.onFailure {
+        return it.handleThrowable()
     }
 }
