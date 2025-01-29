@@ -6,6 +6,7 @@ import androidx.paging.cachedIn
 import com.chanu.photocache.core.common.base.BaseViewModel
 import com.chanu.photocache.core.data.repository.HomeRepository
 import com.chanu.photocache.core.data.repository.ImageLoaderRepository
+import com.chanu.photocache.core.model.PhotoModel
 import com.chanu.photocache.feature.home.model.HomeIntent
 import com.chanu.photocache.feature.home.model.HomeSideEffect
 import com.chanu.photocache.feature.home.model.HomeState
@@ -37,7 +38,7 @@ class HomeViewModel @Inject constructor(
     override fun onIntent(intent: HomeIntent) {
         when (intent) {
             is HomeIntent.LoadImage -> loadImage(intent.url)
-            is HomeIntent.ItemClick -> onItemClick(intent.id)
+            is HomeIntent.ItemClick -> onItemClick(intent.photoModel)
             is HomeIntent.SetPagingError -> showPagingStateError(intent.error)
         }
     }
@@ -66,8 +67,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun onItemClick(id: String) {
-        postSideEffect(HomeSideEffect.NavigateToDetail(id))
+    private fun onItemClick(photoModel: PhotoModel) {
+        postSideEffect(HomeSideEffect.NavigateToDetail(photoModel))
     }
 
     private fun showPagingStateError(throwable: Throwable) {

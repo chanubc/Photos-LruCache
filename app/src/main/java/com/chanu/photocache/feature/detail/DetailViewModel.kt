@@ -13,6 +13,7 @@ import com.chanu.photocache.core.navigation.Route
 import com.chanu.photocache.feature.detail.model.DetailIntent
 import com.chanu.photocache.feature.detail.model.DetailSideEffect
 import com.chanu.photocache.feature.detail.model.DetailState
+import com.chanu.photocache.feature.detail.navigation.DetailTypeMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,7 +30,9 @@ class DetailViewModel @Inject constructor(
 ) : BaseViewModel<DetailIntent, DetailState, DetailSideEffect>(
         initialState = DetailState(),
     ) {
-    private val args = savedStateHandle.toRoute<Route.Detail>()
+    private val args = savedStateHandle.toRoute<Route.Detail>(
+        typeMap = DetailTypeMap.typeMap,
+    ).photoModel
     private val _bitmapState = MutableStateFlow<Bitmap?>(null)
     val bitmapState: StateFlow<Bitmap?> get() = _bitmapState
 

@@ -47,7 +47,7 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
-    navigateToDetail: (String) -> Unit,
+    navigateToDetail: (PhotoModel) -> Unit,
     onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -58,7 +58,7 @@ fun HomeRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycleOwner.lifecycle)
             .collectLatest { sideEffect ->
                 when (sideEffect) {
-                    is HomeSideEffect.NavigateToDetail -> navigateToDetail(sideEffect.id)
+                    is HomeSideEffect.NavigateToDetail -> navigateToDetail(sideEffect.photoModel)
                     is HomeSideEffect.ShowSnackBar -> onShowErrorSnackBar(sideEffect.message)
                 }
             }
@@ -87,7 +87,7 @@ fun HomeRoute(
 @Composable
 private fun HomeScreen(
     lazyPagingItems: LazyPagingItems<PhotoModel>,
-    navigateToDetail: (String) -> Unit,
+    navigateToDetail: (PhotoModel) -> Unit,
     images: Map<String, Bitmap>,
     onImageLoad: (String) -> Unit,
     onRetry: () -> Unit = {},
@@ -108,7 +108,7 @@ private fun HomeScreen(
                 PhotoItem(
                     bitmap = images[item.downloadUrl],
                     onLoad = { onImageLoad(item.downloadUrl) },
-                    onClick = { navigateToDetail(item.id) },
+                    onClick = { navigateToDetail(item) },
                 )
             }
         }
