@@ -37,13 +37,13 @@ class DetailViewModel @Inject constructor(
     val bitmapState: StateFlow<Bitmap?> get() = _bitmapState
 
     init {
-        onIntent(DetailIntent.LoadInitialData)
-        onIntent(DetailIntent.LoadThumbNail(false))
+        onIntent(DetailIntent.LoadInitialData(isMainImage = true))
+        onIntent(DetailIntent.LoadThumbNail(isMainImage = false))
     }
 
     override fun onIntent(intent: DetailIntent) {
         when (intent) {
-            is DetailIntent.LoadInitialData -> getInitialData(args.id)
+            is DetailIntent.LoadInitialData -> getInitialData(args.id, intent.isMainImage)
             is DetailIntent.ClickBlurButton -> intent { copy(colorFilterType = ColorFilterType.BLUR) }
             is DetailIntent.ClickGrayButton -> intent { copy(colorFilterType = ColorFilterType.GRAYSCALE) }
             is DetailIntent.ClickDefaultButton -> intent { copy(colorFilterType = ColorFilterType.DEFAULT) }
@@ -51,18 +51,18 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    private fun getInitialData(id: String) {
+    private fun getInitialData(id: String, isMainImage: Boolean) {
         viewModelScope.launch {
             homeRepository.getDetailPhoto(id.toInt())
                 .onSuccess {
-                    loadImage(it)
+                    loadImage(it, isMainImage)
                 }.onFailure {
                     postSideEffect(DetailSideEffect.ShowSnackBar(it))
                 }
         }
     }
 
-    private fun loadImage(url: String, isMainImage: Boolean = true) {
+    private fun loadImage(url: String, isMainImage: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             intent { copy(loadState = LoadType.Loading) }
             imageLoaderRepository.loadImage(url)
