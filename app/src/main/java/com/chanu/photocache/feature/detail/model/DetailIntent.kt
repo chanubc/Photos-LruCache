@@ -11,5 +11,5 @@ sealed interface DetailIntent : BaseIntent {
 
     data object ClickDefaultButton : DetailIntent
 
-    data object LoadThumbNail : DetailIntent
+    data class LoadThumbNail(val isMainImage: Boolean) : DetailIntent
 }

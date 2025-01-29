@@ -38,7 +38,7 @@ class DetailViewModel @Inject constructor(
 
     init {
         onIntent(DetailIntent.LoadInitialData)
-        onIntent(DetailIntent.LoadThumbNail)
+        onIntent(DetailIntent.LoadThumbNail(false))
     }
 
     override fun onIntent(intent: DetailIntent) {
@@ -47,7 +47,7 @@ class DetailViewModel @Inject constructor(
             is DetailIntent.ClickBlurButton -> intent { copy(colorFilterType = ColorFilterType.BLUR) }
             is DetailIntent.ClickGrayButton -> intent { copy(colorFilterType = ColorFilterType.GRAYSCALE) }
             is DetailIntent.ClickDefaultButton -> intent { copy(colorFilterType = ColorFilterType.DEFAULT) }
-            is DetailIntent.LoadThumbNail -> getThumbNailData(args.id)
+            is DetailIntent.LoadThumbNail -> loadImage(args.downloadUrl, intent.isMainImage)
         }
     }
 
@@ -62,43 +62,16 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    private fun loadImage(url: String) {
+    private fun loadImage(url: String, isMainImage: Boolean = true) {
         viewModelScope.launch(Dispatchers.IO) {
             intent { copy(loadState = LoadType.Loading) }
             imageLoaderRepository.loadImage(url)
                 .onSuccess { bitmap ->
-                    if (bitmap != null) {
-                        intent { copy(loadState = LoadType.Success) }
-                        _bitmapState.update { bitmap }
-                    }
+                    if (isMainImage) intent { copy(loadState = LoadType.Success) }
+                    _bitmapState.update { bitmap }
                 }
                 .onFailure {
                     intent { copy(loadState = LoadType.Error) }
-                    postSideEffect(DetailSideEffect.ShowSnackBar(it))
-                }
-        }
-    }
-
-    private fun getThumbNailData(id: String) {
-        viewModelScope.launch {
-            homeRepository.getThumbNailPhoto(id.toInt())
-                .onSuccess {
-                    loadThumbNailImage(it)
-                }.onFailure {
-                    postSideEffect(DetailSideEffect.ShowSnackBar(it))
-                }
-        }
-    }
-
-    private fun loadThumbNailImage(url: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            imageLoaderRepository.loadThumbNail(url)
-                .onSuccess { bitmap ->
-                    if (_bitmapState.value == null) {
-                        _bitmapState.update { bitmap }
-                    }
-                }
-                .onFailure {
                     postSideEffect(DetailSideEffect.ShowSnackBar(it))
                 }
         }

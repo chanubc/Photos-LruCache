@@ -37,10 +37,4 @@ class DefaultImageLoaderRepository @Inject constructor(
     }.onFailure {
         return it.handleThrowable()
     }
-
-    override suspend fun loadThumbNail(url: String): Result<Bitmap?> = runSuspendCatching {
-        bitmapFetcher.fetchBitmapFromUrl(url)
-    }.onFailure {
-        return it.handleThrowable()
-    }
 }
