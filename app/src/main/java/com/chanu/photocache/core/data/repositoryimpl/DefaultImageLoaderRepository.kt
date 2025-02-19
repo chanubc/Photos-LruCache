@@ -2,6 +2,7 @@ package com.chanu.photocache.core.data.repositoryimpl
 
 import android.graphics.Bitmap
 import com.chanu.photocache.core.common.util.runSuspendCatching
+import com.chanu.photocache.core.common.util.toGenerateKey
 import com.chanu.photocache.core.data.cache.datasource.BitmapFetcher
 import com.chanu.photocache.core.data.cache.datasource.DiskCache
 import com.chanu.photocache.core.data.cache.datasource.MemoryCache
@@ -16,30 +17,25 @@ class DefaultImageLoaderRepository @Inject constructor(
 ) : ImageLoaderRepository {
     // 메모리 캐시, 디스크 캐시, 네트워크 순서로 이미지 조회
     override suspend fun loadImage(url: String): Result<Bitmap?> = runSuspendCatching {
-        val memoryCachedBitmap = memoryCache.get(url)
+        val key = url.toGenerateKey()
+        val memoryCachedBitmap = memoryCache.get(key)
         if (memoryCachedBitmap != null) {
             return@runSuspendCatching memoryCachedBitmap
         }
 
-        val diskCachedBitmap = diskCache.get(url)
+        val diskCachedBitmap = diskCache.get(key)
         if (diskCachedBitmap != null) {
-            memoryCache.put(url, diskCachedBitmap)
+            memoryCache.put(key, diskCachedBitmap)
             return@runSuspendCatching diskCachedBitmap
         }
 
         val bitmap = bitmapFetcher.fetchBitmapFromUrl(url)
         if (bitmap != null) {
-            memoryCache.put(url, bitmap)
-            diskCache.put(url, bitmap)
+            memoryCache.put(key, bitmap)
+            diskCache.put(key, bitmap)
         }
 
         bitmap
-    }.onFailure {
-        return it.handleThrowable()
-    }
-
-    override suspend fun loadThumbNail(url: String): Result<Bitmap?> = runSuspendCatching {
-        bitmapFetcher.fetchBitmapFromUrl(url)
     }.onFailure {
         return it.handleThrowable()
     }

@@ -3,7 +3,7 @@ package com.chanu.photocache.feature.detail.model
 import com.chanu.photocache.core.common.base.BaseIntent
 
 sealed interface DetailIntent : BaseIntent {
-    data object LoadInitialData : DetailIntent
+    data class LoadInitialData(val isMainImage: Boolean) : DetailIntent
 
     data object ClickBlurButton : DetailIntent
 
@@ -11,5 +11,5 @@ sealed interface DetailIntent : BaseIntent {
 
     data object ClickDefaultButton : DetailIntent
 
-    data object LoadThumbNail : DetailIntent
+    data class LoadThumbNail(val isMainImage: Boolean) : DetailIntent
 }

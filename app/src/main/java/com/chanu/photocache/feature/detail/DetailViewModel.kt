@@ -13,6 +13,7 @@ import com.chanu.photocache.core.navigation.Route
 import com.chanu.photocache.feature.detail.model.DetailIntent
 import com.chanu.photocache.feature.detail.model.DetailSideEffect
 import com.chanu.photocache.feature.detail.model.DetailState
+import com.chanu.photocache.feature.detail.navigation.DetailTypeMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,73 +30,48 @@ class DetailViewModel @Inject constructor(
 ) : BaseViewModel<DetailIntent, DetailState, DetailSideEffect>(
         initialState = DetailState(),
     ) {
-    private val args = savedStateHandle.toRoute<Route.Detail>()
+    private val args = savedStateHandle.toRoute<Route.Detail>(
+        typeMap = DetailTypeMap.typeMap,
+    ).photoModel
     private val _bitmapState = MutableStateFlow<Bitmap?>(null)
     val bitmapState: StateFlow<Bitmap?> get() = _bitmapState
 
     init {
-        onIntent(DetailIntent.LoadInitialData)
-        onIntent(DetailIntent.LoadThumbNail)
+        onIntent(DetailIntent.LoadInitialData(isMainImage = true))
+        onIntent(DetailIntent.LoadThumbNail(isMainImage = false))
     }
 
     override fun onIntent(intent: DetailIntent) {
         when (intent) {
-            is DetailIntent.LoadInitialData -> getInitialData(args.id)
+            is DetailIntent.LoadInitialData -> getInitialData(args.id, intent.isMainImage)
             is DetailIntent.ClickBlurButton -> intent { copy(colorFilterType = ColorFilterType.BLUR) }
             is DetailIntent.ClickGrayButton -> intent { copy(colorFilterType = ColorFilterType.GRAYSCALE) }
             is DetailIntent.ClickDefaultButton -> intent { copy(colorFilterType = ColorFilterType.DEFAULT) }
-            is DetailIntent.LoadThumbNail -> getThumbNailData(args.id)
+            is DetailIntent.LoadThumbNail -> loadImage(args.downloadUrl, intent.isMainImage)
         }
     }
 
-    private fun getInitialData(id: String) {
+    private fun getInitialData(id: String, isMainImage: Boolean) {
         viewModelScope.launch {
             homeRepository.getDetailPhoto(id.toInt())
                 .onSuccess {
-                    loadImage(it)
+                    loadImage(it, isMainImage)
                 }.onFailure {
                     postSideEffect(DetailSideEffect.ShowSnackBar(it))
                 }
         }
     }
 
-    private fun loadImage(url: String) {
+    private fun loadImage(url: String, isMainImage: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             intent { copy(loadState = LoadType.Loading) }
             imageLoaderRepository.loadImage(url)
                 .onSuccess { bitmap ->
-                    if (bitmap != null) {
-                        intent { copy(loadState = LoadType.Success) }
-                        _bitmapState.update { bitmap }
-                    }
+                    if (isMainImage) intent { copy(loadState = LoadType.Success) }
+                    _bitmapState.update { bitmap }
                 }
                 .onFailure {
                     intent { copy(loadState = LoadType.Error) }
-                    postSideEffect(DetailSideEffect.ShowSnackBar(it))
-                }
-        }
-    }
-
-    private fun getThumbNailData(id: String) {
-        viewModelScope.launch {
-            homeRepository.getThumbNailPhoto(id.toInt())
-                .onSuccess {
-                    loadThumbNailImage(it)
-                }.onFailure {
-                    postSideEffect(DetailSideEffect.ShowSnackBar(it))
-                }
-        }
-    }
-
-    private fun loadThumbNailImage(url: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            imageLoaderRepository.loadThumbNail(url)
-                .onSuccess { bitmap ->
-                    if (_bitmapState.value == null) {
-                        _bitmapState.update { bitmap }
-                    }
-                }
-                .onFailure {
                     postSideEffect(DetailSideEffect.ShowSnackBar(it))
                 }
         }

@@ -4,7 +4,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.chanu.photocache.core.common.util.runSuspendCatching
-import com.chanu.photocache.core.data.mapper.toResizedUrl
 import com.chanu.photocache.core.data.paging.HomePagingSource
 import com.chanu.photocache.core.data.repository.HomeRepository
 import com.chanu.photocache.core.data.util.handleThrowable
@@ -25,12 +24,6 @@ class DefaultHomeRepository @Inject constructor(
 
     override suspend fun getDetailPhoto(id: Int): Result<String> = runSuspendCatching {
         homeService.getPhotoInfo(id).downloadUrl
-    }.onFailure {
-        return it.handleThrowable()
-    }
-
-    override suspend fun getThumbNailPhoto(id: Int): Result<String> = runSuspendCatching {
-        homeService.getPhotoInfo(id).downloadUrl.toResizedUrl()
     }.onFailure {
         return it.handleThrowable()
     }

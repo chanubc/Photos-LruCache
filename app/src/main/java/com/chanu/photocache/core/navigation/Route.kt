@@ -1,5 +1,6 @@
 package com.chanu.photocache.core.navigation
 
+import com.chanu.photocache.core.model.PhotoModel
 import kotlinx.serialization.Serializable
 
 sealed interface Route {
@@ -7,5 +8,5 @@ sealed interface Route {
     data object Home : Route
 
     @Serializable
-    data class Detail(val id: String) : Route
+    data class Detail(val photoModel: PhotoModel) : Route
 }

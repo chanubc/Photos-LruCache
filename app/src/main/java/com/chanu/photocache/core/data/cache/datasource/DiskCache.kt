@@ -7,6 +7,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
 
 class DiskCache @Inject constructor(
@@ -45,8 +46,10 @@ class DiskCache @Inject constructor(
                 }
             }
 
-            val cacheFile = File(cacheDir, key.hashCode().toString())
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, cacheFile.outputStream())
+            val cacheFile = File(cacheDir, key)
+            FileOutputStream(cacheFile).use { outputStream ->
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
+            }
             lruMap[key] = cacheFile.absolutePath
         }
 }

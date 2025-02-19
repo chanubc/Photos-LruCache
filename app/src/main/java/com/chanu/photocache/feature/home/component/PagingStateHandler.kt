@@ -7,9 +7,9 @@ import androidx.paging.compose.LazyPagingItems
 @Composable
 fun PagingStateHandler(
     lazyPagingItems: LazyPagingItems<*>,
-    loadingContent: @Composable () -> Unit,
-    emptyContent: @Composable () -> Unit,
-    errorContent: @Composable (Throwable) -> Unit,
+    loadingContent: @Composable () -> Unit = {},
+    emptyContent: @Composable () -> Unit = {},
+    errorContent: @Composable (Throwable) -> Unit = {},
     content: @Composable () -> Unit,
 ) {
     when {

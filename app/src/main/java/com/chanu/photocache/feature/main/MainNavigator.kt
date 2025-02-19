@@ -6,6 +6,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.chanu.photocache.core.model.PhotoModel
 import com.chanu.photocache.core.navigation.Route
 import com.chanu.photocache.feature.detail.navigation.navigateDetail
 
@@ -18,8 +19,8 @@ class MainNavigator(
 
     val startDestination = Route.Home
 
-    fun navigateRetail(id: String) {
-        navController.navigateDetail(id)
+    fun navigateRetail(photoModel: PhotoModel) {
+        navController.navigateDetail(photoModel)
     }
 
     fun isBackStackNotEmpty(): Boolean = navController.previousBackStackEntry != null
