@@ -16,7 +16,7 @@ class DefaultImageLoaderRepository @Inject constructor(
     private val bitmapFetcher: BitmapFetcher,
 ) : ImageLoaderRepository {
     // 메모리 캐시, 디스크 캐시, 네트워크 순서로 이미지 조회
-    override suspend fun loadImage(url: String): Result<Bitmap?> = runSuspendCatching {
+    override suspend fun loadImage(url: String): Result<Bitmap> = runSuspendCatching {
         val key = url.toGenerateKey()
         val memoryCachedBitmap = memoryCache.get(key)
         if (memoryCachedBitmap != null) {
@@ -30,10 +30,8 @@ class DefaultImageLoaderRepository @Inject constructor(
         }
 
         val bitmap = bitmapFetcher.fetchBitmapFromUrl(url)
-        if (bitmap != null) {
-            memoryCache.put(key, bitmap)
-            diskCache.put(key, bitmap)
-        }
+        memoryCache.put(key, bitmap)
+        diskCache.put(key, bitmap)
 
         bitmap
     }.onFailure {

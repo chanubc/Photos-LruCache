@@ -9,7 +9,7 @@ class BitmapFetcher {
     private val urlConnectionTimeout: Int = 5000
     private val urlReadTimeout: Int = 5000
 
-    fun fetchBitmapFromUrl(urlString: String): Bitmap? {
+    fun fetchBitmapFromUrl(urlString: String): Bitmap {
         return try {
             val url = URL(urlString)
             val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
@@ -23,7 +23,7 @@ class BitmapFetcher {
                 BitmapFactory.decodeStream(inputStream)
             }
         } catch (e: Exception) {
-            null
+            throw e
         }
     }
 }
