@@ -6,13 +6,13 @@
 ### **📌** 주요 기능 및 완성 화면
 
 | 페이징 | Gray Scale, Blur | Zoom In/Out |
-|--------|--------|------------|
+|--------|--------|--------|
 |![KakaoTalk_20250210_033417890](https://github.com/user-attachments/assets/43e7807f-17de-4adf-bbdf-dd505d013697)|![KakaoTalk_20250210_033410220](https://github.com/user-attachments/assets/ea413617-b688-4932-8e0a-15a1ffbf10f5)  | ![KakaoTalk_20250210_033408503](https://github.com/user-attachments/assets/889bbb7b-95db-4a9b-8592-a724718125fb)|
 
 
 | Thumbnail | 화면회전 | Retry |
-|------------------|--|--|
-| ![KakaoTalk_20250212_120005101](https://github.com/user-attachments/assets/28dcd1d8-23c2-40f0-887d-0c94c83dd234) | ![KakaoTalk_20250212_135629675](https://github.com/user-attachments/assets/1ef7f81d-cac1-405d-a0a6-08710c7a3362)| ![KakaoTalk_20250212_133447614](https://github.com/user-attachments/assets/ee49ea54-5fd3-40ef-a29c-bdcb783054e2) |
+|--------|--------|--------|
+|![KakaoTalk_20250212_120005101](https://github.com/user-attachments/assets/28dcd1d8-23c2-40f0-887d-0c94c83dd234)|![KakaoTalk_20250212_135629675](https://github.com/user-attachments/assets/1ef7f81d-cac1-405d-a0a6-08710c7a3362)|![KakaoTalk_20250212_133447614](https://github.com/user-attachments/assets/ee49ea54-5fd3-40ef-a29c-bdcb783054e2)|
 
 
 ### **📌** 프로젝트 구조
