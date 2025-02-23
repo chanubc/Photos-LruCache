@@ -25,7 +25,7 @@ class DiskCache @Inject constructor(
 
     suspend fun get(key: String): Bitmap? =
         mutex.withLock {
-            val cacheFile = File(cacheDir, key.hashCode().toString())
+            val cacheFile = File(cacheDir, key)
             if (cacheFile.exists()) {
                 lruMap[key] = cacheFile.absolutePath
                 cacheFile.setLastModified(System.currentTimeMillis())
