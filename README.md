@@ -402,13 +402,13 @@ java.lang.RuntimeException: android.os.TransactionTooLargeException: data parcel
     
     ```kotlin
     
-    "download_url": "https://picsum.photos/id/102/4320/3240"
+    "download_url": "/id/102/4320/3240"
     ```
     
     **변경된 URL 예시 (200px 크기로 조정)**
     
     ```kotlin
-    "download_url": "https://picsum.photos/id/102/200/200"
+    "download_url": "/id/102/200/200"
     ```
     
     **→ 즉, `width` 및 `height` 값을 변경하면 원하는 크기의 이미지를 서버에서 직접 제공할 수 있음.**
